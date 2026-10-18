@@ -1,12 +1,19 @@
-# @formvault/mcp
+# FormVault MCP server
 
-An [MCP](https://modelcontextprotocol.io) server for [FormVault](https://formvault.eu) — a GDPR-first form builder hosted in Germany.
+[![npm](https://img.shields.io/npm/v/@formvault/mcp)](https://www.npmjs.com/package/@formvault/mcp)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Point Claude, ChatGPT, Cursor, Copilot or any MCP-compatible assistant at your FormVault account and build forms by describing them.
+Create and manage GDPR-compliant, EU-hosted forms from any MCP-compatible AI assistant.
+
+This is an [MCP](https://modelcontextprotocol.io) server for [FormVault](https://formvault.eu), a form builder hosted in Germany. Point Claude, ChatGPT, Cursor, Copilot or any MCP-compatible assistant at your FormVault account and build forms by describing them.
+
+## Prerequisites
+
+A FormVault account and an API key. Create the key at [formvault.eu/app/api-keys](https://formvault.eu/app/api-keys).
 
 ## Setup (hosted — recommended)
 
-Create an API key at [formvault.eu/app/api-keys](https://formvault.eu/app/api-keys), then add the hosted server to your assistant's MCP configuration — no install, no local process:
+Add the hosted server to your assistant's MCP configuration — no install, no local process:
 
 ```json
 {
@@ -43,7 +50,11 @@ For clients that don't yet support a remote/header-based server:
 }
 ```
 
-Restart your assistant and ask for what you need — _"build me a client intake form with a GDPR consent checkbox"_.
+Restart your assistant and ask for what you need, for example:
+
+- _"Build me a client intake form with a GDPR consent checkbox."_
+- _"List my forms and tell me which have no fields yet."_
+- _"Delete the test form I made earlier."_
 
 | Variable            | Required | Default                    |
 | ------------------- | -------- | -------------------------- |
@@ -52,11 +63,11 @@ Restart your assistant and ask for what you need — _"build me a client intake 
 
 ## Self-hosting / local development
 
-You can also run this package yourself, either as a local stdio server or as your own HTTP deployment:
+You can run this package yourself, either as a local stdio server or as your own HTTP deployment. It is a client of the FormVault API, so it still needs a FormVault account and API key:
 
 ```bash
-pnpm install
-pnpm build
+npm install
+npm run build
 
 # stdio (for a local Claude Desktop/Code config using "command"/"args")
 FORMVAULT_API_KEY=fv_... node dist/index.js
@@ -88,6 +99,10 @@ That is a deliberate boundary, not a limitation. FormVault stores submissions en
 - [formvault.eu/mcp](https://formvault.eu/mcp)
 - [Data processing agreement](https://formvault.eu/dpa)
 - [Privacy](https://formvault.eu/privacy)
+
+## Support
+
+Questions and bug reports: [open an issue](https://github.com/terjetyl/formvault-mcp/issues). Pull requests are welcome.
 
 ## License
 
