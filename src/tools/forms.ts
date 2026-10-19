@@ -39,8 +39,14 @@ const fieldSchema = z.object({
 });
 
 const settingsSchema = z.object({
-  successMessage: z.string().optional(),
-  redirectUrl: z.string().optional(),
+  successMessage: z
+    .string()
+    .optional()
+    .describe("Message shown to the respondent after they submit"),
+  redirectUrl: z
+    .string()
+    .optional()
+    .describe("URL to send the respondent to after they submit"),
   closeAt: z
     .string()
     .optional()
@@ -59,7 +65,9 @@ export function registerFormTools(server: McpServer, client: FormVaultClient) {
     {
       title: "List forms",
       description:
-        "List every form belonging to the API key's tenant. Returns id, name, description, field count and timestamps.",
+        "List every form belonging to the API key's tenant. Returns id, name, description, field count and timestamps. " +
+        "Read-only. Use this first to find a form's id before calling get_form, list_submissions or delete_form; " +
+        "use get_form when you need the field definitions.",
       inputSchema: {},
     },
     withErrorHandling(async () => {
@@ -82,8 +90,9 @@ export function registerFormTools(server: McpServer, client: FormVaultClient) {
     {
       title: "Get a form",
       description:
-        "Get one form with its full field and settings definition. Fetched from the tenant's form list, so an " +
-        "unknown id reports not found rather than another tenant's form.",
+        "Get one form with its full field and settings definition. Read-only. Fetched from the tenant's form list, so an " +
+        "unknown id returns a not-found error rather than another tenant's form. Use list_forms to discover ids; " +
+        "use list_submissions for responses.",
       inputSchema: {
         formId: z.string().describe("UUID of the form"),
       },
@@ -111,6 +120,12 @@ Optional per field: placeholder, options (select/multiselect), min/max
 Settings (all optional): successMessage, redirectUrl, closeAt (ISO date),
 maxResponses.
 
+Returns the created form (including its id) and its publicUrl, the shareable
+link respondents use. This tool only creates: it never edits an existing form, so call it once per new form and check
+list_forms first if a form with the same name may already exist. If the
+FormVault API rejects the input or the key, the tool returns an error result
+with the API's message and nothing is created.
+
 Keep public-facing forms short — every extra question costs responses.`,
       inputSchema: {
         name: z.string().min(1).describe("Form name (non-empty)"),
@@ -122,7 +137,11 @@ Keep public-facing forms short — every extra question costs responses.`,
           .array(fieldSchema)
           .min(1)
           .describe("Field definitions (at least one)"),
-        settings: settingsSchema.optional(),
+        settings: settingsSchema
+          .optional()
+          .describe(
+            "Optional form behaviour: successMessage, redirectUrl, closeAt (ISO 8601) and maxResponses",
+          ),
       },
     },
     withErrorHandling(
@@ -147,7 +166,7 @@ Keep public-facing forms short — every extra question costs responses.`,
       title: "Delete a form (irreversible)",
       description:
         "Permanently delete a form belonging to the API key's tenant. Irreversible, and the form's public URL " +
-        "stops working immediately. Confirm with the user before calling this — do not delete a form on your own " +
+        "stops working immediately. Use list_forms to find the id first. Confirm with the user before calling this — do not delete a form on your own " +
         "initiative.",
       inputSchema: {
         formId: z.string().describe("UUID of the form to delete"),

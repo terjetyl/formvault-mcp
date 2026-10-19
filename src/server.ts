@@ -1,7 +1,12 @@
+import { createRequire } from "node:module";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { FormVaultClient } from "./apiClient.js";
 import { registerFormTools } from "./tools/forms.js";
 import { registerSubmissionTools } from "./tools/submissions.js";
+
+const { version } = createRequire(import.meta.url)("../package.json") as {
+  version: string;
+};
 
 // Sent to the client during initialize and available to the model without a
 // tool call — the right place for context the model needs on every
@@ -27,7 +32,7 @@ routine form-building work.
 // build a fresh instance scoped to each request's own client.
 export function createServer(client: FormVaultClient): McpServer {
   const server = new McpServer(
-    { name: "formvault", version: "0.1.0" },
+    { name: "formvault", version },
     { instructions: SERVER_INSTRUCTIONS },
   );
 

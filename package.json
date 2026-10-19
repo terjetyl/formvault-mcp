@@ -1,6 +1,6 @@
 {
   "name": "@formvault/mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "MCP server for FormVault — create and manage GDPR-compliant, EU-hosted forms from any MCP-compatible AI assistant.",
   "keywords": [
     "mcp",
@@ -33,7 +33,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepublishOnly": "pnpm build"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",
@@ -52,5 +52,8 @@
   },
   "bugs": {
     "url": "https://github.com/terjetyl/formvault-mcp/issues"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
