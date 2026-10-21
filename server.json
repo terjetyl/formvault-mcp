@@ -1,0 +1,44 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.terjetyl/formvault",
+  "title": "FormVault",
+  "description": "Create and manage GDPR-compliant, EU-hosted forms from any MCP-compatible AI assistant.",
+  "repository": {
+    "url": "https://github.com/terjetyl/formvault-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://formvault.eu/mcp",
+  "version": "0.1.2",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@formvault/mcp",
+      "version": "0.1.2",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "FORMVAULT_API_KEY",
+          "description": "FormVault API key (fv_...), created at https://formvault.eu/app/api-keys",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.formvault.eu/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer token: \"Bearer fv_...\" with an API key from https://formvault.eu/app/api-keys",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
