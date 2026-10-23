@@ -5,11 +5,11 @@
 
 Create and manage GDPR-compliant, EU-hosted forms from any MCP-compatible AI assistant.
 
-This is an [MCP](https://modelcontextprotocol.io) server for [FormVault](https://formvault.eu), a form builder hosted in Germany. Point Claude, ChatGPT, Cursor, Copilot or any MCP-compatible assistant at your FormVault account and build forms by describing them.
+This is an [MCP](https://modelcontextprotocol.io) server for [FormVault](https://formvault.eu/?utm_source=mcp-readme&utm_medium=repo), a form builder hosted in Germany. Point Claude, ChatGPT, Cursor, Copilot or any MCP-compatible assistant at your FormVault account and build forms by describing them.
 
 ## Prerequisites
 
-A FormVault account and an API key. Create the key at [formvault.eu/app/api-keys](https://formvault.eu/app/api-keys).
+A FormVault account and an API key. Create the key at [formvault.eu/app/api-keys](https://formvault.eu/app/api-keys?utm_source=mcp-readme&utm_medium=repo).
 
 ## Setup (hosted — recommended)
 
@@ -96,7 +96,7 @@ That is a deliberate boundary, not a limitation. FormVault stores submissions en
 
 ## Links
 
-- [formvault.eu/mcp](https://formvault.eu/mcp)
+- [formvault.eu/mcp](https://formvault.eu/mcp?utm_source=mcp-readme&utm_medium=repo)
 - [Data processing agreement](https://formvault.eu/dpa)
 - [Privacy](https://formvault.eu/privacy)
 
